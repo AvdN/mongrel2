@@ -250,9 +250,7 @@ it fail but still try to run everything:
 
 This is assuming that you are still in the \file{profiles} directory.
 You should see the file \file{error.log} get created and
-probably some messages printed to the screen.  Just ignore any
-mention of Mongrel2 since that's probably just cruft from the \file{libm2.a}
-we haven't removed.
+probably some messages printed to the screen.  
 
 Take a look in the \file{error.log} and you'll see it's not necessarily
 errors but information on how things were run.  You should
@@ -310,6 +308,22 @@ To watch \shell{procer} in action, try doing \shell{m2sh stop -db config.sqlite
 -host localhost -murder} and then look at \file{profiles/error.log} and watch
 Mongrel2 come right back.
 
+
+\subsection{Some helpful environment variables}
+
+\shell{procer takes only two parameters to start: the profiles directory and a PID files.
+It normally writes its log files (\file{run.log} and \file{error.log} in the profiles directory.
+If that is not where you want them you can set the environment variables \shell{PROCER_RUN_LOG} and. 
+\shell{PROCER_ERROR_LOG} to change the names of the files, or if you provide an (absolute) pathname to these
+environments, also their location. 
+
+In its turn \shell{procer} sets the following environment variables for each profile it starts:
+\begin{description}
+\item [PROCER_PIDFILE] this is set to the content of the \file{pid_file} of the profile, so it is easier to
+keep this in sync with your \file{run} script.
+\item [PROCER_ACTION] this is set to the name of the current profile, so it is easier to rueuse \file{run} scripts
+in multiple profiles.
+\end{description}
 
 \subsection{The Python Examples}
 
